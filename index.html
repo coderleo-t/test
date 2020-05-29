@@ -8,9 +8,31 @@
 <body>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
+    // /forshop/getprefer
+    // const CancelToken = axios.CancelToken;
+    let cancel = null
     const instance = axios.create({
-      baseURL: ''
+      baseURL: 'http://meituan.thexxdd.cn/api',
+      cancelToken: new axios.CancelToken((e) => {
+        // 将取消请求函数赋给cancel
+        cancel = e
+      })
     })
+    instance({
+      url: '/forshop/getprefer',
+      method: 'GET'
+    }).then(res => {
+      console.log(res)
+    }, err => {
+      // if(typeof err === Cancel) {
+      //   console.log(err)
+      // }
+      console.log(err.message)
+    })
+
+    // 直接调用此函数会取消请求
+    cancel('取消了请求')
+    
   </script>
 </body>
 </html>
