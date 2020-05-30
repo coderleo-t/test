@@ -4,8 +4,59 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    .wrap {
+      width: 520px;
+      height: 333px;
+      margin: 10% auto;
+      border: 3px solid lightblue;
+      padding: 10px 0px;
+      background-color: lightblue;
+      position: relative;
+    }
+    .move-list {
+      position: absolute;
+      display: flex;
+    }
+    .move-list>img {
+      margin: 0px 10px;
+    }
+    .indicator {
+      position: absolute;
+      left: calc(50% - 100px);
+      bottom: 10px;
+    }
+    .indicator>a {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background-color: lightcoral;
+      margin: 0px 10px;
+    }
+  </style>
+  <script>
+    window.onload = () => {
+      
+    }
+  </script>
 </head>
 <body>
-  
+  <div class="wrap">
+    <div class="move-list">
+      <img src="./assets/img/1.jpg" alt="">
+      <img src="./assets/img/2.jpg" alt="">
+      <img src="./assets/img/3.jpg" alt="">
+      <img src="./assets/img/4.jpg" alt="">
+      <img src="./assets/img/5.jpg" alt="">
+      <img src="./assets/img/1.jpg" alt="">
+    </div>
+    <div class="indicator">
+      <a href="javascript:"></a>
+      <a href="javascript:"></a>
+      <a href="javascript:"></a>
+      <a href="javascript:"></a>
+      <a href="javascript:"></a>
+    </div>
+  </div>
 </body>
 </html>
