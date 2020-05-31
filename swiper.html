@@ -13,10 +13,12 @@
       padding: 10px 0px;
       background-color: lightblue;
       position: relative;
+      overflow: hidden;
     }
     .move-list {
       position: absolute;
       display: flex;
+      left: 0px;
     }
     .move-list>img {
       margin: 0px 10px;
@@ -30,13 +32,72 @@
       display: inline-block;
       width: 20px;
       height: 20px;
-      background-color: lightcoral;
+      background-color: white;
       margin: 0px 10px;
     }
   </style>
   <script>
     window.onload = () => {
+      const moveList = document.querySelector('.move-list')
+      const indicatorList = document.querySelectorAll('.indicator>a')
+      let currentIndex = 0
+      indicatorList[currentIndex].style['backgroundColor'] = 'lightcoral'
+
+      let timerStart
+      function start() {
+        timerStart = setInterval(() => {
+          let currentPosition = parseInt(getComputedStyle(moveList, null)['left'])
+          move(moveList, currentPosition, currentPosition - 520, 100, 180,null)
+          setTimeout(() => {
+            indicatorList[currentIndex].style['backgroundColor'] = 'white'
+            currentIndex += 1
+            currentIndex %= 5
+            indicatorList[currentIndex].style['backgroundColor'] = 'lightcoral'
+          }, 1000)
+        }, 2000)
+      }
       
+      indicatorList.forEach((item, index) => {
+        item.onclick = () => {
+          clearInterval(timerStart)
+          if(index !== currentIndex) {
+            let currentPosition = parseInt(getComputedStyle(moveList, null)['left'])
+            let targetPosition = index * -520
+            indicatorList[currentIndex].style.backgroundColor = 'white'
+            currentIndex = index
+            indicatorList[currentIndex].style.backgroundColor = 'lightcoral'
+            move(moveList, currentPosition, targetPosition, 1000, 180, () => {
+              start()
+            })
+          }
+        }
+      })
+
+      let timer
+      function move(obj, oldPosition, targetPosition, speed, time=180, callback, wrap) {
+        clearInterval(timer)
+        speed = oldPosition > targetPosition ? -speed : speed
+        timer = setInterval(() => {
+          oldPosition += speed
+          if (speed > 0 && oldPosition >= targetPosition
+            || speed < 0 && oldPosition <= targetPosition) {
+            oldPosition = targetPosition
+          }
+          obj.style['left'] = oldPosition + 'px'
+
+          if(-oldPosition+520 >= parseInt(getComputedStyle(obj, null)['width'])) {
+            obj.style.left = 0 + 'px'
+          }
+
+          if (oldPosition === targetPosition) {
+            callback && callback()
+            clearInterval(timer)
+          }
+        }, time)
+      }
+
+      start()
+
     }
   </script>
 </head>
