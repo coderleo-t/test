@@ -3,3 +3,13 @@
 /wbpacktest/package-lock.json
 /wbpacktest/package.json
 /wbpacktest/dist
+
+/webpacktest/node_modules
+/webpacktest/package.json
+/webpacktest/package-lock.json
+/webpacktest/dist
+
+
+
+
+

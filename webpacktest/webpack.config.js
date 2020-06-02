@@ -1,24 +1,20 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const postcssPresetEnv = require('postcss-preset-env')
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
+const HtmlWebpakPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  entry: {
-    index: './src/index.js',
-    test: './src/test.js'
-  },
+  entry: './src/index.js',
   output: {
-    filename: 'js/[name].js',
-    path: path.resolve(__dirname, 'dist'),
+    filename: 'js/built.js',
+    path: path.resolve(__dirname, 'dist')
   },
   module: {
     rules: [
       {
         test: /\.css$/,
         use: [
-          // 'style-loader',
           MiniCssExtractPlugin.loader,
           'css-loader',
           {
@@ -33,20 +29,6 @@ module.exports = {
         ]
       },
       {
-        exclude: /\.(js|html|css)$/,
-        loader: 'url-loader',
-        options: {
-          limit: 8 * 1024,
-          outputPath: 'image',
-          esModule: false,
-          name: '[hash:10].[ext]'
-        }
-      },
-      {
-        test: /\.html$/,
-        loader: 'html-loader'
-      },
-      {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'eslint-loader',
@@ -58,11 +40,11 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        enforce: 'pre',
+        enforce:'pre',
         options: {
           presets: [
             [
-              '@babel/preset-env', 
+              '@babel/preset-env',
               {
                 useBuiltIns: 'usage',
                 corejs: {
@@ -71,19 +53,32 @@ module.exports = {
                 targets: {
                   chrome: '60',
                   firefox: '60',
-                  safari: '10',
                   ie: '9',
+                  safari: '10',
                   edge: '17',
                 }
               }
             ]
           ]
         }
+      },
+      {
+        test: /\.html$/,
+        loader: 'html-loader'
+      },
+      {
+        exclude: /\.(html|js|css)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 8 * 1024,
+          name: '[hash:10].[ext]',
+          outputPath: 'assets'
+        }
       }
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
+    new HtmlWebpakPlugin({
       template: './index.html',
       minify: {
         collapseWhitespace: true,
@@ -91,16 +86,15 @@ module.exports = {
       }
     }),
     new MiniCssExtractPlugin({
-      filename: 'style/build.css'
+      filename: 'css/base.css'
     }),
     new OptimizeCssAssetsWebpackPlugin()
   ],
-  mode: 'production'
-  // ,
-  // devServer: {
-  //   contentBase: path.resolve(__dirname, 'dist'),
-  //   compress: true,
-  //   port: 3306,
-  //   open: true
-  // }
+  mode: 'development',
+  devServer: {
+    contentBase: path.resolve(__dirname, 'dist'),
+    compress: true,
+    port: 3306,
+    open: true
+  }
 }

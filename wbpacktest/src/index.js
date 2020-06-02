@@ -1,9 +1,7 @@
-import './assets/style/base.css'
-import {
-  Promise
-} from './a.js'
+import './assets/style/base.css';
+
 function ab(a, b) {
-  return a + b
+  return a + b;
 }
-console.log(ab(1, 2))
-console.log(new Promise(1, 2, 3))
+
+console.log(ab(1, 2));
