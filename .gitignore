@@ -1,13 +1,12 @@
 # 里面的相对路径前面默认为/,不能写./
-/wbpacktest/node_modules
-/wbpacktest/package-lock.json
-/wbpacktest/package.json
-/wbpacktest/dist
 
 /webpacktest/node_modules
 /webpacktest/package.json
 /webpacktest/package-lock.json
 /webpacktest/dist
+
+
+
 
 
 
