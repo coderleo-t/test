@@ -100,9 +100,10 @@ module.exports = {
       alias: {
         assets: path.resolve(__dirname, 'src/assets')
       },
-      extensions: ['.js', '.css']
+      extensions: ['.js', '.css'],
+      modules: [path.resolve(__dirname, './'), 'node_modules']
     },
-  modules: [path.resolve(__dirname, './'), 'node_modules'],
+  
   mode: 'development',
   devtool: 'eval-source-map',
   optimization: {
